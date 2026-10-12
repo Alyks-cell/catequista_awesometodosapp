@@ -5,7 +5,8 @@ const request = async (url, options = {}) => {
   });
 
   if (!res.ok) {
-    throw new Error(`Request failed (${res.status})`);
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.mssg || `Request failed (${res.status})`);
   }
 
   return res.json();

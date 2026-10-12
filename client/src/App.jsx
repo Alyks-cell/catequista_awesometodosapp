@@ -25,7 +25,7 @@ export default function App() {
     api
       .getTodos()
       .then(setTodos)
-      .catch(() => setError("Could not load your todos."))
+      .catch((e) => setError(`Could not load your todos. ${e.message}`))
       .finally(() => setLoading(false));
   }, []);
 
@@ -35,8 +35,8 @@ export default function App() {
       setTodos((current) => [...current, newTodo]);
       setError("");
       return true;
-    } catch {
-      setError("Could not create the todo. Please try again.");
+    } catch (e) {
+      setError(`Could not create the todo. ${e.message}`);
       return false;
     }
   };
@@ -52,8 +52,8 @@ export default function App() {
         );
       }
       setError("");
-    } catch {
-      setError("Could not update the todo. Please try again.");
+    } catch (e) {
+      setError(`Could not update the todo. ${e.message}`);
     }
   };
 
@@ -64,8 +64,8 @@ export default function App() {
         setTodos((current) => current.filter((t) => t._id !== todo._id));
       }
       setError("");
-    } catch {
-      setError("Could not delete the todo. Please try again.");
+    } catch (e) {
+      setError(`Could not delete the todo. ${e.message}`);
     }
   };
 
